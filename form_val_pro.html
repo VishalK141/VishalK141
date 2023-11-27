@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+}
+
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  background-color: #f2796e;
+  width: 55%;
+  min-height: 100vh;
+  padding: 10px 20px;
+}
+
+
+.text {
+  text-align: center;
+  color: white;
+  font-size: 18px;
+}
+
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 45%;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 50px;
+  border-radius: 10px;
+}
+
+
+form div input {
+  width: 100%;
+  height: 40px;
+  border-radius: 8px;
+  outline: none;
+  border: 2px solid #c4c4c4;
+  padding: 0 30px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+form div {
+  position: relative;
+  margin-bottom: 15px;
+}
+
+input:focus {
+  border: 2px solid #f2796e;
+}
+
+
+.btn {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+
+span {
+  color: #f2796e;
+  cursor: pointer;
+}
+
+
+form div i {
+  position: absolute;
+  padding: 10px;
+}
+
+.success-icon,
+.failure-icon {
+  right: 0;
+  opacity: 0;
+}
+
+
+.error {
+  font-size: 14.5px;
+  margin-top: 5px 0px;
+  color: red;
+}
+
+
+button {
+  margin-top: 15px;
+  width: 100%;
+  height: 45px;
+  background-color: #f2796e;
+  border: 2px solid #f2796e;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.1s ease;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+
+/* @media (max-width: 900px) {
+  .container {
+    flex-direction: column;
+  }
+
+  form,
+  .content {
+    width: 100%;
+  }
+
+  .btn {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 425px) {
+  form {
+    padding: 20px;
+  }
+} */
+
+</style>
+<body>
+
+<div class="container">
+    <form id="form">
+  
+      <div>
+        <label for="username">User Name</label>
+        <input type="text" name="username" id="username" placeholder="Enter Name" />
+        <div class="error"></div>
+      </div>
+  
+      <div>
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email" placeholder="Enter Email" />
+        <div class="error"></div>
+      </div>
+
+      <div>
+        <label for="phone">Phone Numer</label>
+        <input type="text" name="phone" id="phonenm" placeholder="Enter Phone Number" />
+        <div class="error"></div>
+      </div>
+  
+      <div>
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" placeholder="Enter Password" />
+        <div class="error"></div>
+      </div>
+  
+      <button type="submit" id="submit">Submit</button>
+    </form>
+  </div>
+    
+</body>
+<script>
+
+let id = (id) => document.getElementById(id);
+
+let classes = (classes) => document.getElementsByClassName(classes);
+
+let username = id("username"),
+  email = id("email"),
+  password = id("password"),
+  phone = id("phonenm"),
+  form = id("form"),
+  errorMsg = classes("error");
+
+
+
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+if(valid_nm())
+{
+    if(valid_em())
+    {
+        if(valid_pn())
+        {
+            if(valid_pw())
+            {
+
+            }
+
+        }
+    }
+
+}
+return false;
+});
+
+
+
+function valid_nm(){
+            var nm=username.value;
+            alp=/^[A-Za-z]+$/;
+            if(nm.match(alp) && nm.length>=5 && nm.length<=12)
+                { errorMsg[0].innerHTML = "";
+              username.style.border = "2px solid green";
+             return true; }
+            else { errorMsg[0].innerHTML = "Enter a valid username (5-12 characters)";
+                   username.style.border = "2px solid red";
+                   return false;} 
+       }
+  
+function valid_em(){
+            var em=email.value;
+            alp=/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/ ;
+            if(em.match(alp))
+            { errorMsg[1].innerHTML = "";
+              email.style.border = "2px solid green";
+             return true; }
+            else { errorMsg[1].innerHTML = "Enter a valid email address";
+                   email.style.border = "2px solid red";
+                   return false;}
+    }
+
+function valid_pn(){
+            var pn=phone.value;
+            if(pn.length==10)
+            { errorMsg[2].innerHTML = "";
+              phone.style.border = "2px solid green";
+             return true; }
+            else { errorMsg[2].innerHTML = "Enter a valid phone number";
+                   phone.style.border = "2px solid red";
+                   return false;}
+    }
+
+function valid_pw(){
+            var pw=password.value;
+            alp=/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,12}$/ ;
+            if(pw.match(alp))
+            { errorMsg[3].innerHTML = "";
+              password.style.border = "2px solid green";
+             return true; }
+            else { errorMsg[3].innerHTML = "Invalid password (must contain a lowercase, an uppercase and a number) [within 6-12 characters]";
+                   password.style.border = "2px solid red";
+                   return false;}
+    }
+
+</script>
+</html>
